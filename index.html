@@ -31,9 +31,6 @@
 <![endif]-->
 <script src="assets/leaflet.markercluster.js"></script>
 
-<!-- Example data. -->
-<script src="assets/2005.js"></script>
-
 <div id='map'></div>
 
 <script>
@@ -41,11 +38,12 @@
         .setView([33.84, 35.57], 9);
 
     var markers = new L.MarkerClusterGroup();
-
-    var markerLayer = L.mapbox.markerLayer(white_2005)
-    markers.addLayer(markerLayer);
-
     map.addLayer(markers);
+
+    var markerLayer = L.mapbox.markerLayer().loadURL('/assets/2005.geojson');
+    markerLayer.on('ready', function() {
+      markers.addLayer(markerLayer);
+    })
 </script>
 </body>
 </html>
